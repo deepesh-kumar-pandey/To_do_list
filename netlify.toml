@@ -1,0 +1,56 @@
+[[build]]
+  base = "frontend"
+  publish = "frontend"
+  command = "echo 'No build needed for static site'"
+
+[[redirects]]
+  from = "/api/*"
+  to = "https://jyhouxrirfkposonrltu.supabase.co/:splat"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/*"
+  to = "/auth.html"
+  status = 200
+  conditions = {Cookie = ["!sb-access-token"]}
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"
+    X-XSS-Protection = "1; mode=block"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "geolocation=(), microphone=(), camera=()"
+    Strict-Transport-Security = "max-age=31536000; includeSubDomains"
+
+[[headers]]
+  for = "/*.js"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/*.css"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/*.html"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+[build.environment]
+  NODE_VERSION = "18"
+
+[context.production.environment]
+  SUPABASE_URL = ""
+  SUPABASE_ANON_KEY = ""
+
+[context.deploy-preview]
+  command = "echo 'Deploy preview'"
+
+[dev]
+  command = "python -m http.server 8000"
+  targetPort = 8000
+  framework = "#static"

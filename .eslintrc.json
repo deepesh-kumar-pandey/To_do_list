@@ -1,0 +1,61 @@
+{
+    "env": {
+        "browser": true,
+        "es2021": true
+    },
+    "extends": [
+        "eslint:recommended",
+        "prettier"
+    ],
+    "parserOptions": {
+        "ecmaVersion": 2022,
+        "sourceType": "module"
+    },
+    "plugins": [
+        "security"
+    ],
+    "rules": {
+        "no-console": [
+            "warn",
+            {
+                "allow": [
+                    "warn",
+                    "error"
+                ]
+            }
+        ],
+        "no-unused-vars": [
+            "error",
+            {
+                "argsIgnorePattern": "^_"
+            }
+        ],
+        "no-var": "error",
+        "prefer-const": "error",
+        "prefer-arrow-callback": "warn",
+        "eqeqeq": [
+            "error",
+            "always"
+        ],
+        "curly": [
+            "error",
+            "all"
+        ],
+        "no-eval": "error",
+        "no-implied-eval": "error",
+        "no-new-func": "error",
+        "security/detect-object-injection": "warn",
+        "security/detect-non-literal-regexp": "warn",
+        "security/detect-unsafe-regex": "error",
+        "security/detect-buffer-noassert": "error",
+        "security/detect-eval-with-expression": "error",
+        "security/detect-no-csrf-before-method-override": "error"
+    },
+    "globals": {
+        "supabase": "readonly",
+        "CONFIG": "readonly",
+        "GAME_CONFIG": "readonly",
+        "gameState": "writable",
+        "elements": "writable"
+    }
+}

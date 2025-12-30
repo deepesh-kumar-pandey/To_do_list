@@ -1,0 +1,67 @@
+{
+  "name": "questlog",
+  "version": "1.2.0",
+  "description": "A gamified todo list application where you level up by completing quests",
+  "main": "frontend/index.html",
+  "scripts": {
+    "dev": "python -m http.server 8000 --directory frontend",
+    "dev:node": "npx http-server frontend -p 8000 -c-1",
+    "build": "node scripts/build.js",
+    "build:prod": "cross-env NODE_ENV=production node scripts/build.js",
+    "minify:js": "terser frontend/app.js -o frontend/dist/app.min.js --compress --mangle && terser frontend/auth.js -o frontend/dist/auth.min.js --compress --mangle && terser frontend/boss_battles.js -o frontend/dist/boss_battles.min.js --compress --mangle",
+    "minify:css": "cssnano frontend/styles.css frontend/dist/styles.min.css && cssnano frontend/boss_battles.css frontend/dist/boss_battles.min.css",
+    "lint": "eslint frontend/**/*.js",
+    "lint:fix": "eslint frontend/**/*.js --fix",
+    "format": "prettier --write \"frontend/**/*.{js,html,css,json}\"",
+    "format:check": "prettier --check \"frontend/**/*.{js,html,css,json}\"",
+    "validate": "npm run lint && npm run format:check",
+    "prepare": "husky install",
+    "analyze": "node scripts/analyze-bundle.js",
+    "test:lighthouse": "lighthouse http://localhost:8000/index.html --output html --output-path ./lighthouse-report.html",
+    "deploy:netlify": "netlify deploy --prod",
+    "deploy:vercel": "vercel --prod"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/questlog.git"
+  },
+  "keywords": [
+    "gamification",
+    "todo",
+    "productivity",
+    "material-design",
+    "vanilla-javascript",
+    "supabase"
+  ],
+  "author": "Your Name",
+  "license": "MIT",
+  "devDependencies": {
+    "@eslint/js": "^9.0.0",
+    "cross-env": "^7.0.3",
+    "cssnano": "^6.0.0",
+    "cssnano-cli": "^1.0.5",
+    "eslint": "^8.57.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-security": "^2.1.0",
+    "html-minifier": "^4.0.0",
+    "husky": "^9.0.0",
+    "lighthouse": "^11.0.0",
+    "lint-staged": "^15.2.0",
+    "prettier": "^3.2.0",
+    "terser": "^5.27.0"
+  },
+  "dependencies": {},
+  "lint-staged": {
+    "*.js": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{html,css,json}": [
+      "prettier --write"
+    ]
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  }
+}
